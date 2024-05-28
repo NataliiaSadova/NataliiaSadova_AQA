@@ -18,4 +18,15 @@ def test_repo_can_be_found(github_api):
     r = github_api.search_repo('become-qa-auto')
     assert r['total_count'] == 57   
     assert 'become-qa-auto' in r['items'] [0] ['name']
-    
+
+
+@pytest.mark.api
+def test_repo_cannot_be_found(github_api):
+    r = github_api.search_repo('natashasadova')
+    assert r['total_count'] == 0
+
+
+@pytest.mark.api
+def test_repo_with_single_cher_be_found(github_api):
+    r = github_api.search_repo('s')
+    assert r['total_count'] != 0
