@@ -10,7 +10,7 @@ def test_user_exists(github_api):
 
 @pytest.mark.api
 def test_user_not_exists(github_api):
-    r = github_api.get_user('sadovanatasha')
+    r = github_api.get_user('butenkosergii')
     assert r['message'] == 'Not Found'
 
 @pytest.mark.api
@@ -27,6 +27,6 @@ def test_repo_cannot_be_found(github_api):
 
 
 @pytest.mark.api
-def test_repo_with_single_cher_be_found(github_api):
+def test_repo_with_single_char_be_found(github_api):
     r = github_api.search_repo('s')
     assert r['total_count'] != 0
