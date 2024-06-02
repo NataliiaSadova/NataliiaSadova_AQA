@@ -16,19 +16,22 @@ class GitHub:
         body = r.json()
 
         return body
-
-
-#class GitHub:
-
-    #def get_user_defunkt(self):
-        #r = requests.get('https://api.github.com/users/defunkt')
-        #body = r.json()
-
-        #return body
     
-    #def get_non_exist_user(self):
-       # r = requests.get('http://api.github.com/users/sadovanatasha')
-        #body = r.json()
+    def list_repositories_for_a_user(self, username):
+        r = requests.get(f"https://api.github.com/users/{username}/repos")
+        body = r.json()
 
-        #return body
+        return body
+    
+    def list_users(self, id):
+        r = requests.get('https://api.github.com/users',
+            params ={"since": id })
+        body = r.json()
+
+        return body
+    
+    
+
+
+
 
