@@ -14,7 +14,7 @@ class Database():
         print(f"Connected successfully. SQLite Database Version is: {record}")
 
     def get_all_users(self):
-        query = "SELECT name, address, city FROM customers"
+        query = "SELECT id, name, address, city FROM customers"
         self.cursor.execute(query)
         record = self.cursor.fetchall()
         return record
@@ -56,3 +56,15 @@ class Database():
         self.cursor.execute(query)
         record = self.cursor.fetchall()
         return record
+    
+    def insert_new_users(self, id, name, address, city, postalCode, country):
+        query = f"INSERT OR REPLACE INTO customers (id, name, address, city, postalCode, country) \
+            VALUES({id}, '{name}', '{address}','{city}', '{postalCode}', '{country}')"
+        self.cursor.execute(query)
+        self.connection.commit()
+
+    def insert_new_order(self, id, customer_id, product_id, order_date):
+        query = f"INSERT OR REPLACE INTO orders (id, customer_id, product_id, order_date) \
+            VALUES({id}, '{customer_id}', '{product_id}','{order_date}')"
+        self.cursor.execute(query)
+        self.connection.commit()
