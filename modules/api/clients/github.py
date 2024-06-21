@@ -24,8 +24,7 @@ class GitHub:
         return body
     
     def list_users(self, id):
-        r = requests.get('https://api.github.com/users',
-            params ={"since": id })
+        r = requests.get('https://api.github.com/users', params ={"since": id })
         body = r.json()
 
         return body
