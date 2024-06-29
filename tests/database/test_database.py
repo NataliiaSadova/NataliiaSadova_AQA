@@ -108,6 +108,7 @@ def test_add_new_order_with_correct_type_of_datetime():
     new_order = db.insert_new_order(6, 2, 1,(date.strftime('%X')))
     orders = db.get_detailed_orders()
     print(db.get_detailed_orders())
+    
     assert orders[5][0] == 6
     assert orders[5][1] == "Stepan"
     assert orders[5][2] == "солодка вода"

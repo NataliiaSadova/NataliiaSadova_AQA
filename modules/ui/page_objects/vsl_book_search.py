@@ -2,6 +2,8 @@ from modules.ui.page_objects.base_page import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException
 
 class VslBookSearch(BasePage):
     URL = "https://starylev.com.ua/"
@@ -21,8 +23,16 @@ class VslBookSearch(BasePage):
         search_btn.click()
 
     def list_search_result(self):
-        search_list = self.driver.find_element(By.XPATH, '//*[@id="__next"]/section/main/div/div[4]/div[1]/h5[1]/span')
-        return search_list.get_attribute("value")
+        search_list = self.driver.find_elements(By.XPATH, '//*[@id="__next"]/section/main/div/div[5]/div[1]')
+        return search_list()
     
-    def check_title(self, expected_title):
-        return self.driver.title == expected_title
+    def empty_search_result(self, message):
+        try:
+            WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME,'lato-h2 semibold')))
+        except TimeoutException:
+            pass
+        try:
+            empty_search = self.driver.find_element(By.CLASS_NAME,"lato-h2 semibold")
+            return empty_search.text == message
+        except NoSuchElementException:
+            pass
